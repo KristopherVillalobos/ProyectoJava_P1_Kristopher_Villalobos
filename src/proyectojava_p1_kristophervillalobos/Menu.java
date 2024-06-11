@@ -11,9 +11,10 @@ import java.util.List;
  *
  * @author krist
  */
+
 public class Menu {
     
-    class Plato {
+    public class Plato {
 
         private String nombre;
         private String categoria;
@@ -87,7 +88,14 @@ public class Menu {
 
     public void listarPlatos() {
         for (Plato plato : platos) {
-            System.out.println("Nombre: " + plato.getNombre() + ", Categoria: " + plato.getCategoria() + ", Precio: " + plato.getPrecio() + ", Disponible: " + plato.isDisponible());
+            System.out.println(plato.getNombre() + ", " + plato.getCategoria() + ", " + plato.getPrecio() + ", " + plato.isDisponible());
         }
+        System.out.println("");
+    }
+    
+    
+
+    public List<Plato> getPlatos() {
+        return platos;
     }
 }

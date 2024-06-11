@@ -11,14 +11,15 @@ import java.util.List;
  *
  * @author krist
  */
+
 public class Pedidos {
-    
-    class SistemaPedidos {
-        enum EstadoPedido {
-            PENDIENTE, EN_PROCESO, LISTO, ENTREGADO
+
+    public class SistemaPedidos {
+        public enum EstadoPedido {
+            PENDIENTE, ENPROCESO, LISTO, ENTREGADO
         }
 
-        class Pedido {
+        public class Pedido {
 
             private int idPedido;
             private int numeroMesa;
@@ -65,7 +66,7 @@ public class Pedidos {
             }
         }
 
-        private List<Pedido> pedidos;
+        List<Pedido> pedidos;
 
         public SistemaPedidos() {
             this.pedidos = new ArrayList<>();
@@ -79,7 +80,7 @@ public class Pedidos {
             for (Pedido pedido : pedidos) {
                 System.out.println("ID Pedido: " + pedido.getIdPedido() + ", Mesa: " + pedido.getNumeroMesa() + ", Estado: " + pedido.getEstado() + ", Total: $" + pedido.calcularTotal());
                 for (Menu.Plato plato : pedido.getPlatos()) {
-                    System.out.println("- Plato: " + plato.getNombre() + ", Precio: $" + plato.getPrecio());
+                    System.out.println("- Plato: " + plato.getNombre() + ", Precio: " + plato.getPrecio());
                 }
             }
         }
@@ -101,12 +102,16 @@ public class Pedidos {
                     System.out.println("Mesa: " + pedido.getNumeroMesa());
                     System.out.println("Platos:");
                     for (Menu.Plato plato : pedido.getPlatos()) {
-                        System.out.println("- " + plato.getNombre() + ": $" + plato.getPrecio());
+                        System.out.println("- " + plato.getNombre() + ": " + plato.getPrecio());
                     }
-                    System.out.println("Total: $" + pedido.calcularTotal());
+                    System.out.println("Total: " + pedido.calcularTotal());
                     break;
                 }
             }
+        }
+
+        public List<Pedido> getPedidos() {
+            return pedidos;
         }
     }
 }

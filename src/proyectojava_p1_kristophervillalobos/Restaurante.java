@@ -10,4 +10,27 @@ package proyectojava_p1_kristophervillalobos;
  */
 public class Restaurante {
     
+    private int numeromesas;
+    private boolean reservada;
+
+    public Restaurante(int numeromesas, boolean reservada) {
+        this.numeromesas = numeromesas;
+        this.reservada = reservada;
+    }
+
+    public int getNumeromesas() {
+        return numeromesas;
+    }
+
+    public void setNumeromesas(int numeromesas) {
+        this.numeromesas = numeromesas;
+    }
+
+    public boolean isReservada() {
+        return reservada;
+    }
+
+    public void setReservada(boolean reservada) {
+        this.reservada = reservada;
+    }
 }

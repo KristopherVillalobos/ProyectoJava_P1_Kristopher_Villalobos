@@ -10,21 +10,26 @@ import java.util.Scanner;
  *
  * @author krist
  */
+
 public class ProyectoJava_P1_KristopherVillalobos {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
 
-        Menu platos = new Menu();
-        Pedidos SistemaPedidos = new Pedidos();
+        Menu menu = new Menu();
+        Pedidos pedidos = new Pedidos();
+        Pedidos.SistemaPedidos sistemaPedidos = pedidos.new SistemaPedidos();
         
+        menu.agregarPlato(menu.new Plato("Hamburguesa", "Plato Fuerte", 250.00, true));
+        menu.agregarPlato(menu.new Plato("Ensalada Cesar", "Entrada", 70.49, true));
+        menu.agregarPlato(menu.new Plato("Pizza de Pepperoni", "Plato Fuerte", 125.99, true));
+        menu.agregarPlato(menu.new Plato("Sopa de Tomate", "Entrada", 140.99, true));
+        menu.agregarPlato(menu.new Plato("Pasta Alfredo", "Plato Fuerte", 190.00, true));
+        menu.agregarPlato(menu.new Plato("Mozarrella Sticks", "Entrada", 60.00, true));
+        menu.agregarPlato(menu.new Plato("Anafre", "Entrada ", 110.00, true));
+
         Scanner scanner = new Scanner(System.in);
-        
         int opc;
-        
+
         do {
             System.out.println("------------MENU------------");
             System.out.println("1. Gestionar Menu");
@@ -34,14 +39,15 @@ public class ProyectoJava_P1_KristopherVillalobos {
             System.out.println("5. Servicio al Cliente");
             System.out.println("6. Analisis de Ventas");
             System.out.println("7. Salir");
-            System.out.print("Introduce una Opcion: ");
+            System.out.print("Ingrese una Opcion: ");
             opc = scanner.nextInt();
-            
-            switch(opc){
+
+            switch (opc) {
                 case 1:
-                    menuplatos(platos, scanner);
+                    menuplatos(menu, scanner);
                     break;
                 case 2:
+                    gestionarPedidos(sistemaPedidos, menu, scanner);
                     break;
                 case 3:
                     break;
@@ -51,28 +57,29 @@ public class ProyectoJava_P1_KristopherVillalobos {
                     break;
                 case 6:
                     break;
+                case 7:
+                    break;
                 default:
                     System.out.println("Opcion no Valida");
                     break;
             }
-        }
-        while( opc!= 6);
+        } while (opc != 7);
     }
-    
-    private static void menuplatos(Menu platos, Scanner scanner) {
-        
+
+    private static void menuplatos(Menu menu, Scanner scanner) {
         int menuopc;
-        
         Scanner lea = new Scanner(System.in);
-        
+        Scanner lear = new Scanner(System.in);
+
         do {
-            System.out.println("------------MENU------------");
+            System.out.println("------------MENU PLATOS------------");
             System.out.println("1. Agregar Plato");
             System.out.println("2. Eliminar Plato");
             System.out.println("3. Actualizar Plato");
             System.out.println("4. Listar Platos");
             System.out.println("5. Volver al Menu Principal");
-            System.out.print("Ingresa una Opcion: ");
+            System.out.print("Ingrese una Opcion: ");
+            System.out.println("");
             menuopc = scanner.nextInt();
 
             switch (menuopc) {
@@ -83,63 +90,68 @@ public class ProyectoJava_P1_KristopherVillalobos {
                     String categoria = lea.nextLine();
                     System.out.print("Introduce el precio: ");
                     double precio = lea.nextDouble();
-                    System.out.print("Disponibilidad: ");
+                    System.out.print("Disponibilidad (true/false): ");
                     boolean disponible = lea.nextBoolean();
-                    Menu.Plato plato = platos.new Plato(nombre, categoria, precio, disponible);
-                    platos.agregarPlato(plato);
+                    Menu.Plato plato = menu.new Plato(nombre, categoria, precio, disponible);
+                    menu.agregarPlato(plato);
                     break;
                 case 2:
                     System.out.print("Introduce el nombre del plato a eliminar: ");
-                    String nombrePlatoEliminar = lea.nextLine();
-                    platos.eliminarPlato(nombrePlatoEliminar);
+                    String nombrePlatoEliminar = lear.nextLine();
+                    menu.eliminarPlato(nombrePlatoEliminar);
                     break;
                 case 3:
-                    System.out.print("Introduce el nombre del nuevo plato: ");
+                    System.out.print("Introduce el nombre del plato a actualizar: ");
                     String nombrePlatoActualizar = lea.nextLine();
                     System.out.print("Introduce el nuevo nombre: ");
                     String nuevoNombre = lea.nextLine();
-                    System.out.print("Introduce la nueva categoría: ");
+                    System.out.print("Introduce la nueva categoria: ");
                     String nuevaCategoria = lea.nextLine();
                     System.out.print("Introduce el nuevo precio: ");
                     double nuevoPrecio = lea.nextDouble();
-                    System.out.print("Disponibilidad: ");
+                    System.out.print("Disponibilidad (true/false): ");
                     boolean nuevaDisponibilidad = lea.nextBoolean();
-                    Menu.Plato nuevoPlato = platos.new Plato(nuevoNombre, nuevaCategoria, nuevoPrecio, nuevaDisponibilidad);
-                    platos.actualizarPlato(nombrePlatoActualizar, nuevoPlato);
+                    Menu.Plato nuevoPlato = menu.new Plato(nuevoNombre, nuevaCategoria, nuevoPrecio, nuevaDisponibilidad);
+                    menu.actualizarPlato(nombrePlatoActualizar, nuevoPlato);
                     break;
                 case 4:
-                    platos.listarPlatos();
+                    System.out.println("------------------MENU------------------");
+                    menu.listarPlatos();
                     break;
                 case 5:
+                    System.out.println("Volviendo al menu principal...");
                     break;
                 default:
-                    System.out.println("Opcion no Valida. Intenta de nuevo.");
+                    System.out.println("Opcion No Valida");
             }
         } while (menuopc != 5);
-        
-        private static void gestionarPedidos(SistemaPedidos sistemaPedidos, Carta carta, Scanner scanner) {
+    }
+
+    private static void gestionarPedidos(Pedidos.SistemaPedidos sistemaPedidos, Menu menu, Scanner scanner) {
         int eleccion;
+
         do {
-            System.out.println("Gestionar Pedidos");
+            System.out.println("------------GESTIONAR PEDIDOS------------");
             System.out.println("1. Agregar Pedido");
             System.out.println("2. Listar Pedidos");
             System.out.println("3. Cambiar Estado de Pedido");
             System.out.println("4. Generar Factura");
-            System.out.println("5. Volver al Menú Principal");
-            System.out.print("Introduce tu elección: ");
+            System.out.println("5. Volver al Menu Principal");
+            System.out.print("Ingrese una Opcion: ");
+            System.out.println("");
             eleccion = scanner.nextInt();
 
             switch (eleccion) {
                 case 1:
-                    System.out.print("Introduce el número de la mesa: ");
+                    System.out.print("Introduce el numero de la mesa: ");
                     int numeroMesa = scanner.nextInt();
-                    SistemaPedidos.Pedido pedido = sistemaPedidos.new Pedido(sistemaPedidos.obtenerPedidosPorEstado(SistemaPedidos.EstadoPedido.PENDIENTE).size() + 1, numeroMesa);
-                    System.out.print("Introduce el número de platos: ");
+                    Pedidos.SistemaPedidos.Pedido pedido = sistemaPedidos.new Pedido(sistemaPedidos.getPedidos().size() + 1, numeroMesa);
+                    System.out.print("Introduce el numero de platos: ");
                     int numeroPlatos = scanner.nextInt();
                     for (int i = 0; i < numeroPlatos; i++) {
                         System.out.print("Introduce el nombre del plato: ");
                         String nombrePlato = scanner.next();
-                        for (Carta.Plato plato : carta.platos) {
+                        for (Menu.Plato plato : menu.getPlatos()) {
                             if (plato.getNombre().equals(nombrePlato) && plato.isDisponible()) {
                                 pedido.agregarPlato(plato);
                                 break;
@@ -154,11 +166,11 @@ public class ProyectoJava_P1_KristopherVillalobos {
                 case 3:
                     System.out.print("Introduce el ID del pedido: ");
                     int idPedido = scanner.nextInt();
-                    System.out.print("Introduce el nuevo estado (PENDIENTE, EN_PROCESO, LISTO, ENTREGADO): ");
+                    System.out.print("Introduce el nuevo estado (PENDIENTE, ENPROCESO, LISTO, ENTREGADO): ");
                     String nuevoEstado = scanner.next();
-                    for (SistemaPedidos.Pedido p : sistemaPedidos.pedidos) {
+                    for (Pedidos.SistemaPedidos.Pedido p : sistemaPedidos.getPedidos()) {
                         if (p.getIdPedido() == idPedido) {
-                            p.setEstado(SistemaPedidos.EstadoPedido.valueOf(nuevoEstado));
+                            p.setEstado(Pedidos.SistemaPedidos.EstadoPedido.valueOf(nuevoEstado));
                             break;
                         }
                     }
@@ -169,12 +181,11 @@ public class ProyectoJava_P1_KristopherVillalobos {
                     sistemaPedidos.generarFactura(idPedidoFactura);
                     break;
                 case 5:
-                    System.out.println("Volviendo al menú principal...");
+                    System.out.println("Volviendo al menu principal...");
                     break;
                 default:
-                    System.out.println("Elección inválida. Intenta de nuevo.");
+                    System.out.println("Opcion No Valida");
             }
         } while (eleccion != 5);
-    
     }
 }

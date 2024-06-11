@@ -87,7 +87,7 @@ public class Menu {
 
     public void listarPlatos() {
         for (Plato plato : platos) {
-            System.out.println("Nombre: " + plato.getNombre() + ", Categoría: " + plato.getCategoria() + ", Precio: " + plato.getPrecio() + ", Disponible: " + plato.isDisponible());
+            System.out.println("Nombre: " + plato.getNombre() + ", Categoria: " + plato.getCategoria() + ", Precio: " + plato.getPrecio() + ", Disponible: " + plato.isDisponible());
         }
     }
 }

@@ -19,6 +19,7 @@ public class ProyectoJava_P1_KristopherVillalobos {
         // TODO code application logic here
 
         Menu platos = new Menu();
+        Pedidos SistemaPedidos = new Pedidos();
         
         Scanner scanner = new Scanner(System.in);
         
@@ -115,5 +116,65 @@ public class ProyectoJava_P1_KristopherVillalobos {
                     System.out.println("Opcion no Valida. Intenta de nuevo.");
             }
         } while (menuopc != 5);
+        
+        private static void gestionarPedidos(SistemaPedidos sistemaPedidos, Carta carta, Scanner scanner) {
+        int eleccion;
+        do {
+            System.out.println("Gestionar Pedidos");
+            System.out.println("1. Agregar Pedido");
+            System.out.println("2. Listar Pedidos");
+            System.out.println("3. Cambiar Estado de Pedido");
+            System.out.println("4. Generar Factura");
+            System.out.println("5. Volver al Menú Principal");
+            System.out.print("Introduce tu elección: ");
+            eleccion = scanner.nextInt();
+
+            switch (eleccion) {
+                case 1:
+                    System.out.print("Introduce el número de la mesa: ");
+                    int numeroMesa = scanner.nextInt();
+                    SistemaPedidos.Pedido pedido = sistemaPedidos.new Pedido(sistemaPedidos.obtenerPedidosPorEstado(SistemaPedidos.EstadoPedido.PENDIENTE).size() + 1, numeroMesa);
+                    System.out.print("Introduce el número de platos: ");
+                    int numeroPlatos = scanner.nextInt();
+                    for (int i = 0; i < numeroPlatos; i++) {
+                        System.out.print("Introduce el nombre del plato: ");
+                        String nombrePlato = scanner.next();
+                        for (Carta.Plato plato : carta.platos) {
+                            if (plato.getNombre().equals(nombrePlato) && plato.isDisponible()) {
+                                pedido.agregarPlato(plato);
+                                break;
+                            }
+                        }
+                    }
+                    sistemaPedidos.agregarPedido(pedido);
+                    break;
+                case 2:
+                    sistemaPedidos.listarPedidos();
+                    break;
+                case 3:
+                    System.out.print("Introduce el ID del pedido: ");
+                    int idPedido = scanner.nextInt();
+                    System.out.print("Introduce el nuevo estado (PENDIENTE, EN_PROCESO, LISTO, ENTREGADO): ");
+                    String nuevoEstado = scanner.next();
+                    for (SistemaPedidos.Pedido p : sistemaPedidos.pedidos) {
+                        if (p.getIdPedido() == idPedido) {
+                            p.setEstado(SistemaPedidos.EstadoPedido.valueOf(nuevoEstado));
+                            break;
+                        }
+                    }
+                    break;
+                case 4:
+                    System.out.print("Introduce el ID del pedido: ");
+                    int idPedidoFactura = scanner.nextInt();
+                    sistemaPedidos.generarFactura(idPedidoFactura);
+                    break;
+                case 5:
+                    System.out.println("Volviendo al menú principal...");
+                    break;
+                default:
+                    System.out.println("Elección inválida. Intenta de nuevo.");
+            }
+        } while (eleccion != 5);
+    
     }
 }
